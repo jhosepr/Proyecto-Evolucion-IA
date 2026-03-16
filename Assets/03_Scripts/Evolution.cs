@@ -12,13 +12,14 @@ public class Evolution : MonoBehaviour
 
     [Header("Configuración")]
     public GameObject cellPrefab;
-    public float roundDuration = 10f;
+    public float roundDuration = 30f;
     public int countPerRound = 10;
 
     private int score = 0;
     private float timer;
-    private Color bestColor = Color.white;
-    private float bestScale = 1.0f;
+    [Header("Estado de Evolución")]
+    public Color bestColor = Color.gray; 
+    public float bestScale = 1.0f;
 
     private void Awake()
     {
@@ -42,9 +43,8 @@ public class Evolution : MonoBehaviour
 
     private void Update()
     {
-        timer -= Time.deltaTime;
+        timer -= Time.unscaledDeltaTime;
 
-        // Actualizar el cronómetro (Ceil para que no muestre decimales feos)
         if (timeUI != null && timer >= 0)
         {
             timeUI.text = "Tiempo: " + Mathf.Ceil(timer).ToString() + "s";

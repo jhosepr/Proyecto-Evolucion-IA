@@ -20,18 +20,21 @@ public class Cell : MonoBehaviour, IPointerDownHandler
     }
 
     // Este método reemplaza a OnMouseDown y es detectado por el EventSystem
+    // Modifica tu método OnPointerDown en Cell.cs
     public void OnPointerDown(PointerEventData eventData)
     {
-        // 1. Mensaje de confirmación en consola
-        Debug.Log("¡Clic detectado en la célula!");
+        // Buscamos el componente de IA
+        CellAgent agent = GetComponent<CellAgent>();
+        if (agent != null)
+        {
+            agent.OnDeath(); // <--- Aquí le avisamos a la IA que "murió"
+        }
 
-        // 2. Notificar al manager que esta célula fue eliminada (puntos)
         if (Evolution.Instance != null)
         {
             Evolution.Instance.RecordDeath();
         }
 
-        // 3. Destruir el objeto
         Destroy(gameObject);
     }
 }
