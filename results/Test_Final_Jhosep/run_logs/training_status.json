@@ -1,0 +1,29 @@
+{
+    "CellBehavior": {
+        "checkpoints": [
+            {
+                "steps": 74123,
+                "file_path": "results\\Test_Final_Jhosep\\CellBehavior\\CellBehavior-74123.onnx",
+                "reward": null,
+                "creation_time": 1774493488.4666884,
+                "auxillary_file_paths": [
+                    "results\\Test_Final_Jhosep\\CellBehavior\\CellBehavior-74123.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 74123,
+            "file_path": "results\\Test_Final_Jhosep\\CellBehavior.onnx",
+            "reward": null,
+            "creation_time": 1774493488.4666884,
+            "auxillary_file_paths": [
+                "results\\Test_Final_Jhosep\\CellBehavior\\CellBehavior-74123.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.12.1+cpu"
+    }
+}

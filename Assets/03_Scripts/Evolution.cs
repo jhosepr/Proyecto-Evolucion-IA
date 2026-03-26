@@ -1,9 +1,9 @@
 using UnityEngine;
 using TMPro;
+using Unity.MLAgents; // Necesario para detener la IA
 
 public class Evolution : MonoBehaviour
 {
-    // Singleton para que las células puedan avisar cuando mueren
     public static Evolution Instance;
 
     [Header("UI")]
@@ -15,28 +15,24 @@ public class Evolution : MonoBehaviour
     public float roundDuration = 30f;
     public int countPerRound = 10;
 
+    [Header("Meta de la Defensa")]
+    public int maxScore = 200; 
+
     private int score = 0;
     private float timer;
+
     [Header("Estado de Evolución")]
-    public Color bestColor = Color.gray; 
+    public Color bestColor = Color.gray;
     public float bestScale = 1.0f;
 
     private void Awake()
     {
-        // Configuración del Singleton
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
     private void Start()
     {
-        // Inicializar textos de la interfaz
         ActualizarInterfaz();
         StartRound();
     }
@@ -67,20 +63,17 @@ public class Evolution : MonoBehaviour
 
     void Spawn()
     {
-        // Posición aleatoria
         Vector3 pos = new Vector3(Random.Range(-7f, 7f), Random.Range(-3.5f, 3.5f), 0);
         GameObject go = Instantiate(cellPrefab, pos, Quaternion.identity);
 
-        // Lógica de herencia y mutación
         float mutation = 0.15f;
-        float newScale = Mathf.Clamp(bestScale + Random.Range(-mutation, mutation), 0.2f, 1.2f);
+        float newScale = Mathf.Clamp(bestScale + Random.Range(-mutation, mutation), 0.2f, 2.0f);
         Color newColor = new Color(
             Mathf.Clamp01(bestColor.r + Random.Range(-mutation, mutation)),
             Mathf.Clamp01(bestColor.g + Random.Range(-mutation, mutation)),
             Mathf.Clamp01(bestColor.b + Random.Range(-mutation, mutation))
         );
 
-        // Inicializar la célula
         Cell cellScript = go.GetComponent<Cell>();
         if (cellScript != null)
         {
@@ -90,12 +83,10 @@ public class Evolution : MonoBehaviour
 
     void EndRound()
     {
-        // Encontrar sobrevivientes (los que NO clickeaste)
         Cell[] survivors = Object.FindObjectsByType<Cell>(FindObjectsSortMode.None);
 
         if (survivors.Length > 0)
         {
-            // La siguiente generación evoluciona basada en un sobreviviente aleatorio
             int randomIndex = Random.Range(0, survivors.Length);
             SpriteRenderer sr = survivors[randomIndex].GetComponent<SpriteRenderer>();
 
@@ -106,7 +97,6 @@ public class Evolution : MonoBehaviour
             }
         }
 
-        // Limpiar mesa para la siguiente ronda
         foreach (Cell c in survivors)
         {
             Destroy(c.gameObject);
@@ -121,6 +111,18 @@ public class Evolution : MonoBehaviour
         if (scoreUI != null)
         {
             scoreUI.text = "Puntos: " + score;
+        }
+
+        // --- LÓGICA DE PARADA PARA EL EXAMEN ---
+        if (score >= maxScore)
+        {
+            Debug.Log("Meta de puntos alcanzada.");
+
+            // Detiene la comunicación con la terminal de Git Bash
+            Academy.Instance.Dispose();
+
+            // Detiene el modo Play en Unity
+            UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 

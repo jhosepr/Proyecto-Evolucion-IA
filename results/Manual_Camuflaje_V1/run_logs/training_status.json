@@ -1,0 +1,38 @@
+{
+    "CellBehavior": {
+        "checkpoints": [
+            {
+                "steps": 499987,
+                "file_path": "results\\Manual_Camuflaje_V1\\CellBehavior\\CellBehavior-499987.onnx",
+                "reward": null,
+                "creation_time": 1774492096.4739017,
+                "auxillary_file_paths": [
+                    "results\\Manual_Camuflaje_V1\\CellBehavior\\CellBehavior-499987.pt"
+                ]
+            },
+            {
+                "steps": 500243,
+                "file_path": "results\\Manual_Camuflaje_V1\\CellBehavior\\CellBehavior-500243.onnx",
+                "reward": null,
+                "creation_time": 1774492096.5508955,
+                "auxillary_file_paths": [
+                    "results\\Manual_Camuflaje_V1\\CellBehavior\\CellBehavior-500243.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 500243,
+            "file_path": "results\\Manual_Camuflaje_V1\\CellBehavior.onnx",
+            "reward": null,
+            "creation_time": 1774492096.5508955,
+            "auxillary_file_paths": [
+                "results\\Manual_Camuflaje_V1\\CellBehavior\\CellBehavior-500243.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.12.1+cpu"
+    }
+}

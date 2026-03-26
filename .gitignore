@@ -1,9 +1,8 @@
+.venv/
 /[Ll]ibrary/
 /[Tt]emp/
-/[Oo]bj/
+/[Obj]j/
 /[Bb]uild/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
-.vs/
+/[Logs]s/
 *.csproj
 *.sln
